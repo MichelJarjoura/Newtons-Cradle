@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>مرصد بندول نيوتن | جهاز قياس دقيق</title>
+<link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+
+    <header class="plaque">
+      <span class="plaque-pin tl"></span><span class="plaque-pin tr"></span>
+      <span class="plaque-pin bl"></span><span class="plaque-pin br"></span>
+      <div>
+        <h1>بندول نيوتن</h1>
+        <p class="subtitle">
+          نموذج حاسوبي دقيق لخمس كرات فولاذية معلّقة على حاملين متوازيين، يُحاكي انتقال
+          الزخم الخطي عبر التصادمات المرنة المتتابعة وتلاشي الطاقة تدريجياً بفعل الاحتكاك
+          الهوائي ومقاومة المحاور.
+        </p>
+      </div>
+      <div class="plate-tag">
+        <b>ميشيل جرجورة</b>
+        <b>اندريه دلول</b>
+        <b>جاد تكريتي</b>
+        <b>مايكل بطرس</b>
+        <b>داني نداف</b>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="control-panel">
+        <section class="panel-block">
+          <h2>لوحة التشغيل</h2>
+
+          <div class="field">
+            <div class="field-row"><span>السيناريو</span></div>
+            <select id="scenarioSelect">
+              <option value="single">كرة واحدة تسقط</option>
+              <option value="double">كرتان تسقطان</option>
+              <option value="triple">ثلاث كرات تسقط</option>
+              <option value="opposite">تصادم متناظر من الطرفين</option>
+              <option value="gaps">فجوات بين الكرات</option>
+              <option value="differentMasses">اختلاف الكتل</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <div class="field-row"><span>زاوية الإطلاق</span><span class="val" id="ampVal">0.85</span></div>
+            <input id="amplitudeRange" type="range" min="0.3" max="1.1" step="0.05" value="0.85" />
+          </div>
+
+          <div class="field">
+            <div class="field-row"><span>الاحتكاك والتخميد</span><span class="val" id="dampVal">0.004</span></div>
+            <input id="dampingRange" type="range" min="0.0005" max="0.03" step="0.0005" value="0.004" />
+          </div>
+
+          <div class="field">
+            <div class="field-row"><span>سرعة الزمن</span><span class="val" id="speedVal">1.0×</span></div>
+            <input id="speedRange" type="range" min="0.25" max="2.0" step="0.05" value="1.0" />
+          </div>
+
+          <div class="field toggle-row">
+            <span>صوت الاصطدام</span>
+            <label class="switch">
+              <input id="soundToggle" type="checkbox" checked />
+              <span class="switch-track"></span>
+            </label>
+          </div>
+
+          <div class="button-row">
+            <button id="playPauseBtn" class="primary-btn">إيقاف مؤقت</button>
+            <button id="resetBtn" class="secondary-btn">إعادة الضبط</button>
+          </div>
+        </section>
+
+        <section class="panel-block">
+          <h2>قراءات الجهاز</h2>
+          <p id="scenarioDescription" class="info-text"></p>
+
+          <div class="gauge-wrap">
+            <svg id="energyGauge" width="72" height="72" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="7"/>
+              <path id="gaugeArc" fill="none" stroke="url(#gaugeGrad)" stroke-width="7" stroke-linecap="round" />
+              <defs>
+                <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#6fae8f"/>
+                  <stop offset="100%" stop-color="#e7c07f"/>
+                </linearGradient>
+              </defs>
+              <circle cx="50" cy="50" r="3" fill="#e7c07f"/>
+              <line id="gaugeNeedle" x1="50" y1="50" x2="50" y2="14" stroke="#e7c07f" stroke-width="2.4" stroke-linecap="round"/>
+            </svg>
+            <div class="gauge-readout">
+              <div class="label">مستوى الطاقة الحركية</div>
+              <div class="value" id="metricEnergy">—</div>
+              <div class="sub" id="metricMode">الحالة: —</div>
+            </div>
+          </div>
+
+          <div class="tally" id="collisionTally">
+            <div class="tally-digit">0</div><div class="tally-digit">0</div><div class="tally-digit">0</div>
+          </div>
+          <div class="tally-label">عدّاد التصادمات المسجّلة</div>
+        </section>
+      </aside>
+
+      <section class="viewer-card">
+        <div id="sceneContainer"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Import Map for Three.js -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js"
+    }
+  }
+  </script>
+
+  <!-- Load main.js as a module (all imports will be resolved) -->
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+:root{
+  --bg-deep:#0a0b0d;
+  --bg-vignette:#050608;
+  --walnut:#2c1a10;
+  --walnut-dark:#180d06;
+  --brass:#b98a4e;
+  --brass-light:#e7c07f;
+  --brass-dim:#7a5a34;
+  --paper:#ece2cf;
+  --muted:#a5978099;
+  --muted-solid:#9c8f7c;
+  --patina:#6fae8f;
+  --patina-dim:#4d7a63;
+  --danger:#c1694a;
+  --panel-glass: rgba(20,14,10,0.72);
+  --border-hair: rgba(233,209,164,0.14);
+}
+
+*{box-sizing:border-box;}
+
+html,body{
+  margin:0; padding:0; min-height:100vh;
+  background:
+    radial-gradient(ellipse at 50% -10%, rgba(185,138,78,0.10), transparent 55%),
+    radial-gradient(ellipse at 50% 120%, rgba(0,0,0,0.6), transparent 60%),
+    var(--bg-deep);
+  color:var(--paper);
+  font-family: "Segoe UI", Tahoma, "Traditional Arabic", Geneva, sans-serif;
+}
+
+button, select, input{ font: inherit; }
+
+.app-shell{
+  max-width:1440px;
+  margin:0 auto;
+  padding:28px 28px 40px;
+}
+
+/* ===== Museum placard header ===== */
+.plaque{
+  position:relative;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.03), transparent 40%),
+    linear-gradient(135deg, var(--walnut), var(--walnut-dark) 70%);
+  border:1px solid rgba(233,209,164,0.12);
+  border-radius:6px;
+  padding:26px 34px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:24px;
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.55),
+    inset 0 0 0 1px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  margin-bottom:22px;
+  overflow:hidden;
+}
+.plaque::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image:
+    repeating-linear-gradient(115deg, rgba(255,255,255,0.015) 0 2px, transparent 2px 6px);
+  pointer-events:none;
+}
+.plaque-pin{
+  position:absolute; width:9px; height:9px; border-radius:50%;
+  background: radial-gradient(circle at 35% 30%, var(--brass-light), var(--brass) 55%, #5c421f 100%);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.6);
+}
+.plaque-pin.tl{ top:10px; left:12px; }
+.plaque-pin.tr{ top:10px; right:12px; }
+.plaque-pin.bl{ bottom:10px; left:12px; }
+.plaque-pin.br{ bottom:10px; right:12px; }
+
+.eyebrow{
+  margin:0 0 8px;
+  color:var(--brass-light);
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  font-size:0.72rem;
+  font-weight:600;
+}
+h1{
+  margin:0 0 10px;
+  font-size:1.9rem;
+  font-weight:700;
+  color:var(--paper);
+  letter-spacing:0.01em;
+}
+.subtitle{
+  margin:0;
+  color:var(--muted-solid);
+  max-width:760px;
+  line-height:1.75;
+  font-size:0.96rem;
+}
+.plate-tag{
+  flex-shrink:0;
+  padding:10px 16px;
+  border-radius:4px;
+  background:linear-gradient(180deg, #1a1108, #100a05);
+  border:1px solid var(--brass-dim);
+  color:var(--brass-light);
+  font-size:0.8rem;
+  letter-spacing:0.08em;
+  text-align:center;
+  line-height:1.5;
+}
+.plate-tag b{ display:block; color:var(--paper); font-size:0.95rem; letter-spacing:0.02em; }
+
+/* ===== Layout ===== */
+.workspace{
+  display:grid;
+  grid-template-columns:328px 1fr;
+  gap:20px;
+}
+
+.control-panel{ display:flex; flex-direction:column; gap:16px; }
+
+.panel-block, .viewer-card{
+  background:var(--panel-glass);
+  backdrop-filter: blur(6px);
+  border:1px solid var(--border-hair);
+  border-radius:10px;
+  box-shadow:0 18px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.03);
+}
+.panel-block{ padding:20px; }
+.panel-block h2{
+  margin:0 0 16px;
+  font-size:0.82rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--brass-light);
+  display:flex; align-items:center; gap:8px;
+}
+.panel-block h2::before{
+  content:""; width:14px; height:1px; background:var(--brass-dim);
+}
+
+.field{ display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
+.field:last-child{ margin-bottom:0; }
+.field-row{ display:flex; justify-content:space-between; align-items:baseline; }
+.field span{ font-size:0.86rem; color:var(--muted-solid); }
+.field .val{ font-size:0.78rem; color:var(--brass-light); font-variant-numeric: tabular-nums; }
+
+select{
+  padding:11px 12px;
+  border-radius:6px;
+  border:1px solid var(--border-hair);
+  background:var(--walnut-dark);
+  color:var(--paper);
+}
+
+input[type="range"]{
+  -webkit-appearance:none; width:100%; height:3px; border-radius:3px;
+  background:linear-gradient(90deg, var(--brass-dim), var(--border-hair));
+}
+input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none; width:15px; height:15px; border-radius:50%;
+  background: radial-gradient(circle at 35% 30%, var(--brass-light), var(--brass) 60%, #5c421f);
+  border:1px solid rgba(0,0,0,0.4);
+  box-shadow:0 2px 5px rgba(0,0,0,0.5);
+  cursor:pointer;
+}
+input[type="range"]::-moz-range-thumb{
+  width:15px; height:15px; border-radius:50%;
+  background: radial-gradient(circle at 35% 30%, var(--brass-light), var(--brass) 60%, #5c421f);
+  border:1px solid rgba(0,0,0,0.4); cursor:pointer;
+}
+
+.button-row{ display:flex; gap:10px; margin-top:6px; }
+button{
+  border:none; border-radius:6px; padding:11px 14px; cursor:pointer;
+  transition:transform 150ms ease, filter 150ms ease; flex:1;
+  font-size:0.86rem; letter-spacing:0.02em;
+}
+button:hover{ transform:translateY(-1px); filter:brightness(1.08); }
+button:active{ transform:translateY(0); }
+.primary-btn{
+  background:linear-gradient(180deg, var(--brass-light), var(--brass));
+  color:#241407; font-weight:600;
+}
+.secondary-btn{
+  background:rgba(255,255,255,0.06); color:var(--paper);
+  border:1px solid var(--border-hair);
+}
+
+.toggle-row{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:2px 0;
+}
+.switch{
+  position:relative; width:38px; height:20px; flex-shrink:0;
+}
+.switch input{ opacity:0; width:0; height:0; position:absolute; }
+.switch-track{
+  position:absolute; inset:0; border-radius:999px;
+  background:rgba(255,255,255,0.08); border:1px solid var(--border-hair);
+  transition:background 150ms ease; cursor:pointer;
+}
+.switch-track::after{
+  content:""; position:absolute; top:2px; right:2px; width:14px; height:14px;
+  border-radius:50%; background:var(--muted-solid); transition:all 150ms ease;
+}
+.switch input:checked + .switch-track{ background:rgba(111,174,143,0.35); border-color:var(--patina-dim); }
+.switch input:checked + .switch-track::after{ right:20px; background:var(--patina); }
+
+.info-text{ color:var(--paper); line-height:1.8; margin:0 0 16px; font-size:0.9rem; }
+
+/* ===== Instrument gauge (signature element) ===== */
+.gauge-wrap{ display:flex; align-items:center; gap:16px; }
+.gauge-readout{ flex:1; }
+.gauge-readout .label{ font-size:0.76rem; color:var(--muted-solid); margin-bottom:4px; }
+.gauge-readout .value{ font-size:1.05rem; color:var(--paper); font-weight:600; }
+.gauge-readout .sub{ font-size:0.76rem; color:var(--patina); margin-top:2px; }
+
+/* Mechanical tally counter for swing count */
+.tally{
+  display:flex; gap:3px; margin-top:14px;
+}
+.tally-digit{
+  flex:1; text-align:center; padding:8px 0; border-radius:4px;
+  background:linear-gradient(180deg, #100a05, #1c120a);
+  border:1px solid var(--border-hair);
+  color:var(--brass-light); font-variant-numeric: tabular-nums;
+  font-size:1.1rem; box-shadow:inset 0 2px 4px rgba(0,0,0,0.6);
+}
+.tally-label{ font-size:0.72rem; color:var(--muted-solid); margin-top:8px; letter-spacing:0.06em; }
+
+.viewer-card{ padding:12px; min-height:720px; position:relative; }
+#sceneContainer{
+  width:100%; height:696px; border-radius:8px; overflow:hidden; cursor:grab;
+}
+#sceneContainer:active{ cursor:grabbing; }
+
+.viewer-hint{
+  position:absolute; bottom:26px; left:50%; transform:translateX(-50%);
+  background:rgba(10,7,4,0.65); border:1px solid var(--border-hair);
+  padding:7px 14px; border-radius:999px; font-size:0.76rem; color:var(--muted-solid);
+  pointer-events:none; backdrop-filter: blur(4px);
+}
+
+@media (max-width:980px){
+  .workspace{ grid-template-columns:1fr; }
+  .viewer-card{ min-height:520px; }
+  #sceneContainer{ height:480px; }
+  .plaque{ flex-direction:column; align-items:flex-start; }
+}
