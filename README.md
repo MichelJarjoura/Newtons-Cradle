@@ -109,6 +109,3 @@ Rather than a single oscillator tone, `sound.js` layers two components per impac
 
 Impact loudness scales with `state.lastCollisionIntensity`, derived from the closing speed at the moment of collision, so harder hits sound louder.
 
-## License
-
-Add your license of choice here (e.g. MIT).
