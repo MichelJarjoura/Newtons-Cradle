@@ -1,10 +1,3 @@
-/**
- * cameraControls.js
- * ------------------------------------------------------------------
- * التحكم في الكاميرا المدارية: السحب للدوران، والعجلة للتكبير/التصغير.
- * ------------------------------------------------------------------
- */
-
 import * as THREE from 'three';
 
 export function createOrbitControls(camera, container, target = new THREE.Vector3(0, 1.5, 0)) {
@@ -25,10 +18,8 @@ export function createOrbitControls(camera, container, target = new THREE.Vector
     return target;
   }
 
-  // Initialize camera position
   updateCameraPosition();
 
-  // Mouse/Touch controls
   let dragging = false;
   let lastX = 0;
   let lastY = 0;
@@ -65,7 +56,6 @@ export function createOrbitControls(camera, container, target = new THREE.Vector
     updateCameraPosition();
   }, { passive: false });
 
-  // Return controls object with methods
   return {
     update: updateCameraPosition,
     setTarget: (newTarget) => {

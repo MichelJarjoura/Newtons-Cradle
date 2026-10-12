@@ -96,5 +96,3 @@ export function setupUi({ state, applyScenario, syncVisuals, playClick }) {
   return { refresh };
 }
 
-// Optional: Also export as default if you prefer
-// export default { setupUi };
