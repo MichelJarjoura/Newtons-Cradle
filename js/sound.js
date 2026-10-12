@@ -1,32 +1,15 @@
-/**
- * sound.js
- * ------------------------------------------------------------------
- * صوت اصطدام الكرات: يجمع بين طقّة ضوضاء مُرشَّحة (bandpass) تحاكي
- * الاحتكاك المعدني اللحظي، ونغمة قصيرة سريعة التلاشي تحاكي رنين
- * الفولاذ. تتناسب شدة الصوت مع سرعة الاصطدام الفعلية القادمة من
- * محرك الفيزياء بدلاً من أن تكون ثابتة، فتبدو الضربات القوية أعلى
- * والضربات الخفيفة أهدأ — كما في الجهاز الحقيقي.
- * ------------------------------------------------------------------
- */
-
 let audioCtx = null;
 let lastSoundTime = 0;
-const SOUND_COOLDOWN = 0.045; // Minimum time between sounds (seconds)
+const SOUND_COOLDOWN = 0.1; 
 
 function getAudioContext() {
   audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
   if (audioCtx.state === "suspended") {
-    // Needed for Chrome's autoplay policy
     audioCtx.resume();
   }
   return audioCtx;
 }
 
-/**
- * Plays a metallic collision click.
- * @param {number} intensity - roughly the closing angular speed of the
- *   collision (state.lastCollisionIntensity). Higher = louder & brighter.
- */
 export function playCollisionSound(intensity = 1) {
   const toggle = document.getElementById("soundToggle");
   if (!toggle || !toggle.checked) return;
@@ -39,11 +22,9 @@ export function playCollisionSound(intensity = 1) {
     const ctx = getAudioContext();
     const t0 = ctx.currentTime;
 
-    // Clamp so silence/near-zero contacts don't get amplified, and hard
-    // hits don't clip.
+
     const amt = Math.min(Math.max(intensity, 0.2), 1.6);
 
-    /* ---- Transient: filtered noise burst = the "click" ---- */
     const noiseDuration = 0.028;
     const bufferSize = Math.max(1, Math.floor(ctx.sampleRate * noiseDuration));
     const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
@@ -69,7 +50,7 @@ export function playCollisionSound(intensity = 1) {
     noiseFilter.connect(noiseGain);
     noiseGain.connect(ctx.destination);
 
-    /* ---- Body: short metallic tone = the "clack" ring ---- */
+
     const osc = ctx.createOscillator();
     const oscGain = ctx.createGain();
     osc.type = "triangle";
@@ -84,7 +65,6 @@ export function playCollisionSound(intensity = 1) {
     osc.connect(oscGain);
     oscGain.connect(ctx.destination);
 
-    /* ---- A second, higher partial for a bit of metallic shimmer ---- */
     const osc2 = ctx.createOscillator();
     const osc2Gain = ctx.createGain();
     osc2.type = "sine";
@@ -101,6 +81,6 @@ export function playCollisionSound(intensity = 1) {
     osc2.start(t0);
     osc2.stop(t0 + 0.06);
   } catch (err) {
-    /* audio unavailable — fail silently */
+    
   }
 }

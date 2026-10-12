@@ -1,12 +1,3 @@
-/**
- * physics.js
- * ------------------------------------------------------------------
- * ديناميكا بندول نيوتن: تكامل معادلة البندول غير الخطية لكل كرة على
- * حدة، ثم حل التصادمات المرنة بين الكرات المتجاورة عبر عدة تمريرات
- * تكرارية لكل خطوة زمنية فرعية — وهذا ما يسمح بانتقال الزخم عبر أكثر
- * من كرة ساكنة في اللحظة نفسها، كما يحدث في الجهاز الحقيقي.
- * ------------------------------------------------------------------
- */
 
 export const SCENARIOS = {
   single: {
@@ -75,7 +66,7 @@ export function createPhysicsState() {
     startX,
     radius,
     gravity: 9.81,
-    damping: 0.004,
+    damping: 0.045,
     speedMultiplier: 1.0,
     amplitude: 0.85,
     restitution: 0.99,
@@ -165,8 +156,7 @@ export function updatePhysics(state, deltaTime) {
 
           state.collisionCount++;
           state.lastCollisionSignal = 1;
-          // Track the strongest collision this frame so the sound can
-          // scale with impact speed instead of always sounding the same.
+
           state.lastCollisionIntensity = Math.max(
             state.lastCollisionIntensity || 0,
             Math.abs(closingSpeed)
