@@ -4,6 +4,13 @@ A physically-based Newton's Cradle simulation built with **Three.js**, featuring
 
 ![status](https://img.shields.io/badge/status-active-brightgreen)
 
+
+##
+
+
+![picture](/pic.png)
+
+
 ## Demo Features
 
 - 6 preset scenarios (single/double/triple drop, symmetric collision, gapped balls, mixed masses)
