@@ -8,7 +8,7 @@ A physically-based Newton's Cradle simulation built with **Three.js**, featuring
 ##
 
 
-<img src="pic.png" width="300" alt="My Picture">
+<img src="newtonCradlePic.png" width="300" alt="My Picture">
 
 
 
